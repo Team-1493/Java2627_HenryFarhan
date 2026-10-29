@@ -11,18 +11,19 @@ public class IntakeSystem extends SubsystemBase {
         if (instance == null) {
             instance = new IntakeSystem(11);
         }
-        System.out.println("********************** SHOOTER **********************");
+        System.out.println("********************** INTAKE **********************");
         return instance;
     }
 
     private final TalonFX conveyorMotor;
     private NeutralOut brake = new NeutralOut();
     
-        public IntakeSystem(int conveyorMotorID) {
-            conveyorMotor = new TalonFX(conveyorMotorID);
-            brake = new NeutralOut();
-        
+    public IntakeSystem(int conveyorMotorID) {
+        conveyorMotor = new TalonFX(conveyorMotorID);
+        brake = new NeutralOut();
+    
     }
+    
     public void startConveyor() {
         conveyorMotor.setVoltage(
             ConstantValues.IntakeConstants.INTAKE_CONVEYOR_VOLTAGE
@@ -31,6 +32,11 @@ public class IntakeSystem extends SubsystemBase {
     public void stopConveyor() {
         conveyorMotor.setControl(
             brake
+        );
+    }
+    public void startConveyorReverse() {
+        conveyorMotor.setVoltage(
+            -ConstantValues.IntakeConstants.INTAKE_CONVEYOR_VOLTAGE
         );
     }
 
