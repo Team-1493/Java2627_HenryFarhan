@@ -22,7 +22,7 @@ public class ShootCommand extends Command {
         addRequirements(shooter, intake);
     }
 
-    public void Initialize() {
+    public void initialize() {
         double shooterSpeed = getShooterSpeed();
 
         SmartDashboard.putNumber("Shooter Speed Calculator", shooterSpeed);
@@ -37,6 +37,7 @@ public class ShootCommand extends Command {
         double currentTime = timer.get();
         shooter.moveConveyor();
         shooter.shoot(2);
+        intake.startConveyor();
         if (currentTime > 0.05 && currentTime < 1) {
             intake.stopConveyor();
         }
@@ -44,8 +45,8 @@ public class ShootCommand extends Command {
         if (timer.get() > 1) {
             intake.startConveyor();
             // intake.intake();
-            // intake.armToPos(0.1 + 0.1 * Math.sin(1.5 * timer.get() * math.pi));
-            // double pos = Math.min(0.18, 0.18 * timer.get() / 4.5);
+            //intake.armToPos(0.1 + 0.1 * Math.sin(1.5 * timer.get() * math.pi));
+            //double pos = Math.min(0.18, 0.18 * timer.get() / 4.5);
             // intake.armToPos(pos);
         }
     }
