@@ -1,25 +1,23 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
-
-import edu.wpi.first.math.controller.PIDController;
+import frc.robot.subsystems.vision.PhotonVisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.FollowController;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class FollowMe extends Command {
     private final CommandSwerveDrivetrain drivetrain;
-    // henry's photonvision code
-    // private final PhotonVision camera;
 
     private final FollowController controller;
+    private final PhotonVisionSubsystem vision;
 
     private final SwerveRequest.RobotCentric driveRequest = new SwerveRequest.RobotCentric();
-
-    public FollowMe(CommandSwerveDrivetrain drivetrain, FollowController controller) {
+    
+    public FollowMe(CommandSwerveDrivetrain drivetrain, FollowController controller, PhotonVisionSubsystem vision) {
         this.drivetrain = drivetrain;
         this.controller = controller;
-        addRequirements(drivetrain);
+        this.vision = vision;
+        addRequirements(drivetrain, vision);
     }
     @Override
     public void initialize() {
@@ -27,7 +25,7 @@ public class FollowMe extends Command {
     }
     @Override
     public void execute() {
-        double[] output = controller.calculate(target);
+        double[] output = controller.calculate(vision);
         drivetrain.setControl(
             driveRequest
             .withVelocityX(output[0])
