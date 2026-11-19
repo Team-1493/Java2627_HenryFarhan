@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import frc.robot.subsystems.vision.PhotonVisionSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
@@ -26,12 +27,14 @@ public class FollowMe extends Command {
     @Override
     public void execute() {
         double[] output = controller.calculate(vision);
+        double yawError = controller.getYawError();
         drivetrain.setControl(
             driveRequest
-            .withVelocityX(output[0])
-            .withVelocityY(output[1])
+            .withVelocityX(0)
+            .withVelocityY(0)
             .withRotationalRate(output[2])
         );
+        SmartDashboard.putNumber("yaw error", 5.2);
     }
     public void end(boolean interrupted) {
         drivetrain.setControl(

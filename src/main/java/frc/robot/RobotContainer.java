@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.ConstantValues;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.commands.FollowController;
@@ -28,9 +29,7 @@ import frc.robot.commands.TestPhotonVisionCommand;
 
 public class RobotContainer {
     private static final String ShooterSystem = null;
-
     private final PhotonVisionSubsystem vision = new PhotonVisionSubsystem();
-
     private final FollowController followController = new FollowController();
 
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired
@@ -57,6 +56,7 @@ public class RobotContainer {
     private final FollowMe followMeCommand = new FollowMe(drivetrain, followController, vision);
 
     public RobotContainer() {
+        ConstantValues.getInstance();
         configureBindings();
     }
 
