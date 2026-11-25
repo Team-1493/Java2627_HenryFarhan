@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenix6.controls.Follower;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ConstantValues {
@@ -118,6 +120,22 @@ public class ConstantValues {
         public static double TOLERANCE = 1e-3;
     }
 
+    public static class FollowerConstants {
+        public static double FORWARD_KP = 0.5;
+        public static double FORWARD_KD = 0.0;
+        public static double FORWARD_KI = 0.0;
+
+        public static double STRAFE_KP = 0.5;
+        public static double STRAFE_KD = 0.0;
+        public static double STRAFE_KI = 0.0;
+
+        public static double YAW_KP = 1.0;
+        public static double YAW_KD = 0.0;
+        public static double YAW_KI = 0.0;
+        public static double YAW_TRAPEZOIDAL_MAX_VEL = 2.0;
+        public static double YAW_TRAPEZOIDAL_MAX_ACC = 0.0;
+    }
+
     public static void updateConstants() {
         // Drive
         DriveConstants.TELEOP_kP = SmartDashboard.getNumber("Drive Teleop kP", DriveConstants.TELEOP_kP);
@@ -198,6 +216,21 @@ public class ConstantValues {
         HeadingControllerConstants.HEADINGCONTROLLER_VMAX = SmartDashboard.getNumber("HeadingController Vmax", HeadingControllerConstants.HEADINGCONTROLLER_VMAX);
         HeadingControllerConstants.HEADINGCONTROLLER_TOLERANCE = SmartDashboard.getNumber("HeadingController Tol", HeadingControllerConstants.HEADINGCONTROLLER_TOLERANCE);
         HeadingControllerConstants.HEADINGCONTROLLER_RATE_TOLERANCE = SmartDashboard.getNumber("HeadingController Rate Tol", HeadingControllerConstants.HEADINGCONTROLLER_RATE_TOLERANCE);
+    
+        // Following
+        FollowerConstants.FORWARD_KP = SmartDashboard.getNumber("Follower ForwardKP", FollowerConstants.FORWARD_KP);
+        FollowerConstants.FORWARD_KD = SmartDashboard.getNumber("Follower ForwardKD", FollowerConstants.FORWARD_KD);
+        FollowerConstants.FORWARD_KI = SmartDashboard.getNumber("Follower ForwardKI", FollowerConstants.FORWARD_KI);
+        FollowerConstants.STRAFE_KI = SmartDashboard.getNumber("Follower StrafeKI", FollowerConstants.STRAFE_KI);
+        FollowerConstants.STRAFE_KP = SmartDashboard.getNumber("Follower StrafeKP", FollowerConstants.STRAFE_KP);
+        FollowerConstants.STRAFE_KD = SmartDashboard.getNumber("Follower StrafeKD", FollowerConstants.STRAFE_KD);
+        FollowerConstants.YAW_KP = SmartDashboard.getNumber("Follower YawKP", FollowerConstants.YAW_KP);
+        FollowerConstants.YAW_KD = SmartDashboard.getNumber("Follower YawKD", FollowerConstants.YAW_KD);
+        FollowerConstants.YAW_KI = SmartDashboard.getNumber("Follower YawKI", FollowerConstants.YAW_KI);
+        FollowerConstants.YAW_TRAPEZOIDAL_MAX_VEL = SmartDashboard.getNumber("Follower Yaw max vel", FollowerConstants.YAW_TRAPEZOIDAL_MAX_VEL);
+        FollowerConstants.YAW_TRAPEZOIDAL_MAX_ACC = SmartDashboard.getNumber("Follower Yaw max acc", FollowerConstants.YAW_TRAPEZOIDAL_MAX_ACC);
+
+        
     }
 
     public static void writeConstantsDashboard() {
@@ -280,5 +313,19 @@ public class ConstantValues {
         SmartDashboard.putNumber("Feeder KP", ShooterConstants.FEEDER_KP);
         SmartDashboard.putNumber("Shooting Velocity", ShooterConstants.SHOOTING_VELOCITY);
         SmartDashboard.putNumber("Conveyor Velocity", ShooterConstants.CONVEYOR_VELOCITY);
+
+        // Following
+        SmartDashboard.putNumber("Follower ForwardKP", FollowerConstants.FORWARD_KP);
+        SmartDashboard.putNumber("Follower ForwardKD", FollowerConstants.FORWARD_KD);
+        SmartDashboard.putNumber("Follower ForwardKI", FollowerConstants.FORWARD_KI);
+        SmartDashboard.putNumber("Follower StrafeKP", FollowerConstants.STRAFE_KP);
+        SmartDashboard.putNumber("Follower StrafeKD", FollowerConstants.STRAFE_KD);
+        SmartDashboard.putNumber("Follower StrafeKI", FollowerConstants.STRAFE_KI);
+        SmartDashboard.putNumber("Follower YawKP", FollowerConstants.YAW_KP);
+        SmartDashboard.putNumber("Follower YawKD", FollowerConstants.YAW_KD);
+        SmartDashboard.putNumber("Follower YawKI", FollowerConstants.YAW_KI);
+        SmartDashboard.putNumber("Follower Yaw max vel", FollowerConstants.YAW_TRAPEZOIDAL_MAX_VEL);
+        SmartDashboard.putNumber("Follower Yaw max acc", FollowerConstants.YAW_TRAPEZOIDAL_MAX_ACC);
+
     }
 }

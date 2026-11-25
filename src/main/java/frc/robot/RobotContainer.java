@@ -18,16 +18,19 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 import frc.robot.generated.TunerConstants;
+import frc.robot.ConstantValues;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ShooterSystem;
+import frc.robot.commands.FollowController;
 import frc.robot.subsystems.vision.PhotonVisionSubsystem;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.FollowMe;
 import frc.robot.commands.TestPhotonVisionCommand;
 
 public class RobotContainer {
     private static final String ShooterSystem = null;
-
     private final PhotonVisionSubsystem vision = new PhotonVisionSubsystem();
+    private final FollowController followController = new FollowController();
 
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired
                                                                                         // top
@@ -50,7 +53,10 @@ public class RobotContainer {
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
+    private final FollowMe followMeCommand = new FollowMe(drivetrain, followController, vision);
+
     public RobotContainer() {
+        ConstantValues.getInstance();
         configureBindings();
     }
 
@@ -79,7 +85,7 @@ public class RobotContainer {
 
         // Shooter
         joystick.x().whileTrue(new ShootCommand());
-        joystick.y().whileTrue(new TestPhotonVisionCommand(vision));
+        joystick.y().whileTrue(followMeCommand); // new TestPhotonVisionCommand(vision));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
